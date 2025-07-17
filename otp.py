@@ -21,7 +21,7 @@ headers = {
 }
 
 otp_data = {}  # { number: {otp, app, country, created} }
-total_pages = 2
+total_pages = 100
 
 app = Flask(__name__)
 
