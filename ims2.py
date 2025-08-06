@@ -28,8 +28,8 @@ logger = logging.getLogger(__name__)
 # Configuration
 LOGIN_URL = "https://www.imssms.org/signin"
 BASE_XHR_URL = "https://www.imssms.org/client/res/data_smscdr.php?fdate1={}%2000:00:00&fdate2={}%2023:59:59&frange=&fnum=&fcli=&fgdate=&fgmonth=&fgrange=&fgnumber=&fgcli=&fg=0&sEcho=1&iColumns=7&sColumns=%2C%2C%2C%2C%2C%2C&iDisplayStart=0&iDisplayLength=25&mDataProp_0=0&sSearch_0=&bRegex_0=false&bSearchable_0=true&bSortable_0=true&mDataProp_1=1&sSearch_1=&bRegex_1=false&bSearchable_1=true&bSortable_1=true&mDataProp_2=2&sSearch_2=&bRegex_2=false&bSearchable_2=true&bSortable_2=true&mDataProp_3=3&sSearch_3=&bRegex_3=false&bSearchable_3=true&bSortable_3=true&mDataProp_4=4&sSearch_4=&bRegex_4=false&bSearchable_4=true&bSortable_4=true&mDataProp_5=5&sSearch_5=&bRegex_5=false&bSearchable_5=true&bSortable_5=true&mDataProp_6=6&sSearch_6=&bRegex_6=false&bSearchable_6=true&bSortable_6=true&sSearch=&bRegex=false&iSortCol_0=0&sSortDir_0=desc&iSortingCols=1&_=1754455568096"
-USERNAME = os.getenv("USERNAME", "Panels")
-PASSWORD = os.getenv("PASSWORD", "12341234")
+USERNAME = os.getenv("USERNAME", "MK1Vasu")
+PASSWORD = os.getenv("PASSWORD", "MK1Vasu")
 BOT_TOKEN = os.getenv("BOT_TOKEN", "7905683098:AAGsm8_qFqxMcRYotSGZVXg0Ags6ZvueD20")
 CHAT_ID = os.getenv("CHAT_ID", "-1002311125652")
 DEVELOPER_ID = os.getenv("DEVELOPER_ID", "@YourDeveloperID")
