@@ -115,7 +115,8 @@ def mask_number(number):
 
 # Check if message is an OTP
 def is_otp_message(message):
-    return bool(re.search(r'\b\d{4,8}\b|OTP|code', message, re.IGNORECASE))
+    # Require both a 6-digit code and keywords like OTP, code, or verification
+    return bool(re.search(r'\b\d{6}\b', message) and re.search(r'OTP|code|verification', message, re.IGNORECASE))
 
 # Send message to Telegram with inline buttons
 async def send_telegram_message(number, sender, message):
@@ -213,6 +214,12 @@ def health():
     logger.info("Health check requested")
     return Response("OK", status=200)
 
+# Fallback root endpoint for misconfigured health checks
+@app.route('/')
+def root():
+    logger.info("Root endpoint requested (possible misconfigured health check)")
+    return Response("OK", status=200)
+
 # Start the OTP fetching loop in a separate thread
 def start_otp_loop():
     logger.info("Starting OTP loop thread")
@@ -228,6 +235,6 @@ if __name__ == '__main__':
     otp_thread.start()
     
     # Start the Flask web server
-    port = int(os.getenv('PORT', 8080))
+    port = int(os.getenv('PORT', 5000))
     logger.info(f"Starting Flask server on port {port}")
     app.run(host='0.0.0.0', port=port, threaded=True)
