@@ -228,6 +228,6 @@ if __name__ == '__main__':
     otp_thread.start()
     
     # Start the Flask web server
-    port = int(os.getenv('PORT', 5000))
+    port = int(os.getenv('PORT', 8080))
     logger.info(f"Starting Flask server on port {port}")
     app.run(host='0.0.0.0', port=port, threaded=True)
