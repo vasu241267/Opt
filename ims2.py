@@ -115,7 +115,6 @@ def mask_number(number):
 
 # Check if message is an OTP
 def is_otp_message(message):
-    # Look for 4-8 digit codes or keywords like "OTP" or "code"
     return bool(re.search(r'\b\d{4,8}\b|OTP|code', message, re.IGNORECASE))
 
 # Send message to Telegram with inline buttons
@@ -231,4 +230,4 @@ if __name__ == '__main__':
     # Start the Flask web server
     port = int(os.getenv('PORT', 5000))
     logger.info(f"Starting Flask server on port {port}")
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, threaded=True)
