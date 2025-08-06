@@ -1,1 +1,1 @@
-web: gunicorn ims2:app
+web: python ims2.py
