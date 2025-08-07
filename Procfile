@@ -1,1 +1,1 @@
-web: python ims2.py
+web: python hina2.py
