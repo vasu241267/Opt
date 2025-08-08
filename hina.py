@@ -16,7 +16,7 @@ AUTH_MESSAGE = '42/livesms,["eyJpdiI6..."]'  # ⚠️ YOUR LIVE TOKEN
 PING_INTERVAL = 100
 start_pinging = False
 
-BOT_TOKEN = "7905683098:AAGsm8_qFqxMcRYotSGZVXg0Ags6ZvueD20"
+BOT_TOKEN = "8049406807:AAGhuUh9fOm5wt7OvTobuRngqY0ZNBMxlHE"
 GROUP_ID = "-1002311125652"
 CHANNEL_URL = "https://t.me/ddxotp"
 DEV_URL = "https://t.me/Vxxwo"
