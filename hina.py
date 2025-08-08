@@ -94,6 +94,7 @@ def on_message(ws, message):
             if isinstance(data, list) and len(data) > 1 and isinstance(data[1], dict):
                 sms = data[1]
                 raw_msg = sms.get("message", "")
+                originator = sms.get("originator", "Unknown")
                 recipient = sms.get("recipient", "Unknown")
                 country = sms.get("country_iso", "??").upper()
 
@@ -106,10 +107,10 @@ def on_message(ws, message):
                 service = "WhatsApp" if "whatsapp" in raw_msg.lower() else "Unknown"
 
                 telegram_msg = (
-                    f"🔔 <b>OTP Received</b>\n"
+                    f"🔔 <b>OTP Received</b>: {country} \n"
                     f"🔑 <b>OTP</b>: <code>{otp}</code>\n"
                     f"🕒 <b>Time</b>: {now}\n"
-                    f"⚙️ <b>Service</b>: {service}\n"
+                    f"⚙️ <b>Service</b>: {originator}\n"
                     f"☎️ <b>Number</b>: {recipient[:5]}{formatted_number}\n\n"
                     f"{html.escape(raw_msg)}"
                 )
