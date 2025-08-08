@@ -19,7 +19,7 @@ start_pinging = False
 BOT_TOKEN = "7905683098:AAGsm8_qFqxMcRYotSGZVXg0Ags6ZvueD20"
 GROUP_ID = "-1002311125652"
 CHANNEL_URL = "https://t.me/ddxotp"
-DEV_URL = "https://t.me/imvasupareek"
+DEV_URL = "https://t.me/Vxxwo"
 
 # -------------------- TELEGRAM --------------------
 
