@@ -10,16 +10,20 @@ from flask import Flask, Response
 
 # -------------------- CONFIG --------------------
 
-WS_URL = "wss://ivasms.com:2087/socket.io/?token=eyJpdiI6InNIZVhWMEhpc0FZMG5SOWRjRjVuamc9PSIsInZhbHVlIjoiVTFQbTRlWVFDVUsvZFNhTS94QnozT0diRnA2QVh3ODVJdFExbDdha3ZXMTB4ZGJLUmNwd202NWpETDB3SzJpeWZtcTliZlRobmovKzZnWTJTVUI3eGJnczBvcUNQMC9hMmExVSsxNVlHaXp1SGx0NVdWTjNwd1FsUStOWThYc0NGVHRDcTNSaW94RVUwUjUzbWx3d0llN2lvYVBjbXBzYmNIMmlvcTBSTjBGQzFRd2NWN1huOW5vYjBPN25jSXlsSXBpV1I0ZmdVd25hemxoNFU2djRnMFBKYnNNaElueGVaT0lwMHlNYzhXQzNqVlRYajcxc080WjFsWUU5SkE3K1BmL2dQQWhKYzNZUFpWYWM0TXdhUmE4TXhKVXJCclg5Mk52WGpmWlpXaVJLTTMyaFdrbUtyNWUxVmNnSVU5NFpralBwc0pKeTdOWkJoU2ovQ2E3RTZ4VlVKYVJyaENjb0k4WHZuUDBMU011N0pFMG00WVJQZEVvdlVBcjd0ckNUaldPYWZQSmVWZUVnVUJJVWNUakxiYXFRQ2RRSytnSjZqTW5uZEpXeVNCb0FIK2lISVBPaXNGbkdmcndZU3RjN1VSV0JtL2hwdGk4NDhQekRrQ1VBRFJucklFL0pGczlUVlA0cU9NMmFwWnRJWWFDdzlwaUpFa29BTFMvcWh4OFp1bEdiRG1VMHBPaVFZRGo0ZnYxNGxnPT0iLCJtYWMiOiJmMDJhYWE0MmJiNzA5Y2JjNWNjZWUxNWM1MjllMmU0YTNhYjcwM2IzMzhmMTg3YzQ3Y2NmYzAwNjUwYzYwZGM4IiwidGFnIjoiIn0%3D&user=8d75eedc6d2833853cf8fea9790e711a&EIO=4&transport=websocket"  # replace this
-
-AUTH_MESSAGE = '42/livesms,["eyJpdiI6..."]'  # ⚠️ YOUR LIVE TOKEN
 PING_INTERVAL = 150
 start_pinging = False
 
-BOT_TOKEN = "8011551620:AAFvDlRL7brL1JF9kEpQJXIVzZf01og4Lc0"
-GROUP_ID = "-1002311125652"
-CHANNEL_URL = "https://t.me/ddxotp"
-DEV_URL = "https://t.me/Vxxwo"
+import os
+
+WS_URL = os.environ.get("WS_URL")
+AUTH_MESSAGE = os.environ.get("AUTH_MESSAGE")
+PING_INTERVAL = int(os.environ.get("PING_INTERVAL", 25))  # default 25 sec
+
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+GROUP_ID = os.environ.get("GROUP_ID")
+CHANNEL_URL = os.environ.get("CHANNEL_URL")
+DEV_URL = os.environ.get("DEV_URL")
+
 
 # -------------------- TELEGRAM --------------------
 
@@ -27,7 +31,7 @@ def send_to_telegram(text):
     buttons = {
         "inline_keyboard": [
             [
-                {"text": "📢 Channel", "url": CHANNEL_URL},
+                {"text": "📢 Numbers", "url": CHANNEL_URL},
                 {"text": "👨‍💻 Developer", "url": DEV_URL}
             ]
         ]
@@ -57,8 +61,8 @@ def send_ping(ws):
     while ws.keep_running:
         if start_pinging:
             try:
-                ws.send("2")
-                print("📡 Ping sent (2)")
+                ws.send("3")
+                print("📡 Ping sent (3)")
             except Exception as e:
                 print("❌ Failed to send ping:", e)
                 break
@@ -107,13 +111,17 @@ def on_message(ws, message):
                 service = "WhatsApp" if "whatsapp" in raw_msg.lower() else "Unknown"
 
                 telegram_msg = (
-                    f"🔔 <b>OTP Received</b>: {country}\n"
-                    f"🔑 <b>OTP</b>: <code>{otp}</code>\n"
-                    f"🕒 <b>Time</b>: {now}\n"
-                    f"⚙️ <b>Service</b>: {originator}\n"
-                    f"☎️ <b>Number</b>: {recipient[:5]}{formatted_number}\n\n"
-                    f"{html.escape(raw_msg)}"
-                )
+    "📩 <b><u>OTP Notification</u></b>\n"
+    "━━━━━━━━━━━━━━━━━━━━\n"
+    f"🌍 <b>Country:</b> <code>{country}</code>\n"
+    f"🔑 <b>OTP:</b> <code>{otp}</code>\n"
+    f"🕒 <b>Time:</b> <code>{now}</code>\n"
+    f"⚙️ <b>Service:</b> <code>{originator}</code>\n"
+    f"📱 <b>Number:</b> <code>{recipient[:5]}{formatted_number}</code>\n"
+    "━━━━━━━━━━━━━━━━━━━━\n"
+    f"💬 <b>Message:</b>\n<code>{html.escape(raw_msg)}</code>"
+)
+
                 send_to_telegram(telegram_msg)
 
             else:
