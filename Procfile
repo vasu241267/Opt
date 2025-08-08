@@ -1,1 +1,1 @@
-web: python hina2.py
+web: python hina.py
