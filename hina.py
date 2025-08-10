@@ -116,7 +116,7 @@ def on_message(ws, message):
                 service = "WhatsApp" if "whatsapp" in raw_msg.lower() else "Unknown"
 
                 telegram_msg = (
-    "🎉 <b><u>OTP Notification</u></b>\n"
+    "🔔 <b><u>OTP Alert</u></b>\n"
     "━━━━━━━━━━━━━━━━━━━━\n"
     f"🌍 <b>Country:</b> <code>{country}</code>\n"
     f"🔑 <b>OTP:</b> <code>{otp}</code>\n"
@@ -124,9 +124,14 @@ def on_message(ws, message):
     f"📢 <b>Service:</b> <code>{originator}</code>\n"
     f"📱 <b>Number:</b> <code>{recipient[:5]}{formatted_number}</code>\n"
     "━━━━━━━━━━━━━━━━━━━━\n"
-    f"💬 <b>Message:</b>\n<code>{html.escape(raw_msg)}</code>\n"
-                    
+    f"💬 <b>Message:</b>\n"
+    f"<code>{html.escape(raw_msg)}</code>\n"
+    "━━━━━━━━━━━━━━━━━━━━\n"
+    "\n"
+    "<i>⚡ Delivered instantly via DDxOTP </i>"
 )
+
+
 
                 send_to_telegram(telegram_msg)
 
