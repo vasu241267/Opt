@@ -23,6 +23,8 @@ BOT_TOKEN = os.environ.get("BOT_TOKEN")
 GROUP_ID = os.environ.get("GROUP_ID")
 CHANNEL_URL = os.environ.get("CHANNEL_URL")
 DEV_URL = os.environ.get("DEV_URL")
+retries = 2     # Telegram message send attempts
+delay = 1      # Seconds to wait between retries
 
 
 # -------------------- TELEGRAM --------------------
@@ -115,7 +117,7 @@ def on_message(ws, message):
                 otp_match = re.search(r'\b\d{3}[- ]?\d{3}\b|\b\d{6}\b', raw_msg)
                 otp = otp_match.group(0) if otp_match else "N/A"
 
-                formatted_number = recipient[:-4].replace(recipient[:-4], '⁕' * (len(recipient[:-4]))) + recipient[-4:]
+                masked = recipient[:5] + '⁕' * (len(recipient) - 9) + recipient[-4:]
                 now = datetime.now().strftime("%H:%M:%S")
                 service = "WhatsApp" if "whatsapp" in raw_msg.lower() else "Unknown"
 
@@ -126,7 +128,7 @@ def on_message(ws, message):
     f"🔑 <b>OTP:</b> <code>{otp}</code>\n"
     f"🕒 <b>Time:</b> <code>{now}</code>\n"
     f"📢 <b>Service:</b> <code>{originator}</code>\n"
-    f"📱 <b>Number:</b> <code>{recipient[:5]}{formatted_number}</code>\n"
+    f"📱 <b>Number:</b> <code>{masked}</code>\n"
     "━━━━━━━━━━━━━━━━━━━━\n"
     f"💬 <b>Message:</b>\n"
     f"<code>{html.escape(raw_msg)}</code>\n"
