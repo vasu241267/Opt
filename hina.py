@@ -44,20 +44,24 @@ def send_to_telegram(text):
         "reply_markup": json.dumps(buttons)
     }
 
-    now = time.time()
-    if now - last_sent_time < 1.2:
-        time.sleep(1.2 - (now - last_sent_time))
+    for attempt in range(retries):
+        try:
+            response = requests.post(
+                f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+                data=payload,
+                timeout=10
+            )
+            if response.status_code == 200:
+                print("✅ Message sent to Telegram")
+                return True
+            else:
+                print(f"⚠️ Telegram Error [{response.status_code}]: {response.text}")
+        except Exception as e:
+            print(f"❌ Telegram Send Failed (Attempt {attempt+1}/{retries}):", e)
         
-
-    try:
-        response = requests.post(
-            f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-            data=payload
-        )
-        if response.status_code != 200:
-            print("⚠️ Telegram Error:", response.text)
-    except Exception as e:
-        print("❌ Telegram Send Failed:", e)
+        if attempt < retries - 1:
+            time.sleep(delay)
+    return False
 
 # -------------------- FUNCTIONS --------------------
 
