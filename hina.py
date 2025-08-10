@@ -37,10 +37,11 @@ def send_to_telegram(text):
             [
                 {"text": "☎️ Numbers", "url": CHANNEL_URL},
                 {"text": "🖥️ Developer", "url": DEV_URL}
-            ]
-                {"text": "SUPPORT CHAT", "url": CHAT_URL},
-                
+            ],
             [
+                {"text": "🤝 Support Chat", "url": CHAT_URL},
+                
+            
             ]
         ]
     }
