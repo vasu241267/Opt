@@ -28,7 +28,7 @@ DEV_URL = os.environ.get("DEV_URL")
 # -------------------- TELEGRAM --------------------
 
 retries = 3
-delay = 2
+delay = 1
 
 def send_to_telegram(text):
     buttons = {
