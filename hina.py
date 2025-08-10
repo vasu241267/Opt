@@ -23,11 +23,12 @@ BOT_TOKEN = os.environ.get("BOT_TOKEN")
 GROUP_ID = os.environ.get("GROUP_ID")
 CHANNEL_URL = os.environ.get("CHANNEL_URL")
 DEV_URL = os.environ.get("DEV_URL")
-retries = 2     # Telegram message send attempts
-delay = 1      # Seconds to wait between retries
 
 
 # -------------------- TELEGRAM --------------------
+
+retries = 3
+delay = 2
 
 def send_to_telegram(text):
     buttons = {
@@ -64,6 +65,7 @@ def send_to_telegram(text):
         if attempt < retries - 1:
             time.sleep(delay)
     return False
+
 
 # -------------------- FUNCTIONS --------------------
 
