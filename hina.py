@@ -23,7 +23,7 @@ BOT_TOKEN = os.environ.get("BOT_TOKEN")
 GROUP_ID = os.environ.get("GROUP_ID")
 CHANNEL_URL = os.environ.get("CHANNEL_URL")
 DEV_URL = os.environ.get("DEV_URL")
-
+CHAT_URL = "https://t.me/+GUrrAxu90tk2NWY1"
 
 # -------------------- TELEGRAM --------------------
 
@@ -37,6 +37,10 @@ def send_to_telegram(text):
             [
                 {"text": "☎️ Numbers", "url": CHANNEL_URL},
                 {"text": "🖥️ Developer", "url": DEV_URL}
+            ]
+                {"text": "SUPPORT CHAT", "url": CHAT_URL},
+                
+            [
             ]
         ]
     }
