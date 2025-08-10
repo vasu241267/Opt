@@ -31,8 +31,8 @@ def send_to_telegram(text):
     buttons = {
         "inline_keyboard": [
             [
-                {"text": "📢 Numbers", "url": CHANNEL_URL},
-                {"text": "👨‍💻 Developer", "url": DEV_URL}
+                {"text": "☎️ Numbers", "url": CHANNEL_URL},
+                {"text": "🖥️ Developer", "url": DEV_URL}
             ]
         ]
     }
@@ -43,6 +43,11 @@ def send_to_telegram(text):
         "parse_mode": "HTML",
         "reply_markup": json.dumps(buttons)
     }
+
+    now = time.time()
+    if now - last_sent_time < 1.2:
+        time.sleep(1.2 - (now - last_sent_time))
+        
 
     try:
         response = requests.post(
@@ -111,15 +116,16 @@ def on_message(ws, message):
                 service = "WhatsApp" if "whatsapp" in raw_msg.lower() else "Unknown"
 
                 telegram_msg = (
-    "📩 <b><u>OTP Notification</u></b>\n"
+    "🎉 <b><u>OTP Notification</u></b>\n"
     "━━━━━━━━━━━━━━━━━━━━\n"
     f"🌍 <b>Country:</b> <code>{country}</code>\n"
     f"🔑 <b>OTP:</b> <code>{otp}</code>\n"
     f"🕒 <b>Time:</b> <code>{now}</code>\n"
-    f"⚙️ <b>Service:</b> <code>{originator}</code>\n"
+    f"📢 <b>Service:</b> <code>{originator}</code>\n"
     f"📱 <b>Number:</b> <code>{recipient[:5]}{formatted_number}</code>\n"
     "━━━━━━━━━━━━━━━━━━━━\n"
-    f"💬 <b>Message:</b>\n<code>{html.escape(raw_msg)}</code>"
+    f"💬 <b>Message:</b>\n<code>{html.escape(raw_msg)}</code>\n"
+                    
 )
 
                 send_to_telegram(telegram_msg)
